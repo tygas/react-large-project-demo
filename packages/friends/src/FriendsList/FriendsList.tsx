@@ -22,6 +22,7 @@ export const FriendsList: FC<{ callApi: ApiCaller }> = ({ callApi }) => {
       <input
         type="text"
         value={searchText}
+        data-testid="friend-search"
         onChange={(event) => search(event.target.value)}
       />
       {!!notifications.length && (

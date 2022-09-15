@@ -1,15 +1,9 @@
 import '@testing-library/jest-dom';
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
-import { fetchJSON } from 'core';
-import { FriendsMockSwitch, setFriendsMockSwitch } from 'friends-api';
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react';
+import {fetchJSON} from 'core';
+import {FriendsMockSwitch, setFriendsMockSwitch} from 'friends-api';
 import React from 'react';
-import { FriendsList } from './FriendsList';
+import {FriendsList} from './FriendsList';
 
 function renderFriends() {
   return render(<FriendsList callApi={fetchJSON} />);
@@ -55,6 +49,16 @@ describe('FriendsList', () => {
     expect(getByText('Enrico Pouros')).toBeDefined();
     expect(getByText('Patricia Barrows')).toBeDefined();
     expect(getByText('Steven Bergstrom')).toBeDefined();
+  });
+
+  test('renders list of searched friends', async () => {
+    const { findByText, queryByText, findByTestId } = renderFriends();
+    const searchInput = await findByTestId('friend-search')
+
+    fireEvent.change(searchInput, {target: {value: 'Kreiger'}})
+
+    await expect(findByText('Carlee Kreiger')).resolves.toBeDefined();
+    expect(queryByText('Enrico Pouros')).not.toBeInTheDocument()
   });
 
   test('renders error message in case of loading failure', async () => {
