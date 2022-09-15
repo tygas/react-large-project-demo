@@ -33,11 +33,11 @@ export const FriendsList: FC<{ callApi: ApiCaller }> = ({ callApi }) => {
           ))}
         </div>
       )}
-      {friends.map((friend) => {
+      {friends.map((friend, key) => {
         const { id, firstName, lastName, image } = friend;
         const fullName = [firstName, lastName].join(' ');
         return (
-          <div key={id} data-testid="friend" className={styles.friend}>
+          <div key={id + key.toString()} data-testid="friend" className={styles.friend}>
             <img src={image} alt={fullName} />
             <span data-testid="full-name">{fullName}</span>
             <div className={styles.actions}>

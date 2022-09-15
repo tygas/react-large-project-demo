@@ -7,6 +7,11 @@ type LoadFriendsAction = {
   payload: FriendsResponse;
 };
 
+type LoadMoreFriendsAction = {
+  type: 'LOAD_MORE_FRIENDS';
+  payload: FriendsResponse;
+};
+
 type AddToFavoritesAction = {
   type: 'ADD_TO_FAVORITES';
   id: string;
@@ -43,6 +48,7 @@ type SearchAction = {
 
 export type FriendsAction =
   | LoadFriendsAction
+  | LoadMoreFriendsAction
   | AddToFavoritesAction
   | RemoveFromFavoritesAction
   | ProcessingSucceedAction

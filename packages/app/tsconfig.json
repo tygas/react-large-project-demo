@@ -2,5 +2,8 @@
   "extends": "dev-tools/config/tsconfig.json",
   "include": [
     "src"
-  ]
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }

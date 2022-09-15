@@ -9,15 +9,19 @@ function remove<T>(list: T[], idToRemove: T): T[] {
   return list.filter((id) => id !== idToRemove);
 }
 
+const FRIENDS_PAGE_SIZE = 5;
+
 export function friendsReducer(
   state: FriendsState,
   action: FriendsAction
 ): FriendsState {
   switch (action.type) {
     case 'LOAD_FRIENDS':
+      const startingPage = action.payload._links.next?.href.slice(-1);
+      const friends = startingPage == FRIENDS_PAGE_SIZE || state.searchText ? action.payload._embedded : [...state.friends, ...action.payload._embedded]
       return {
         ...state,
-        friends: [...state.friends, ...action.payload._embedded],
+        friends
       }
     case 'ADD_TO_FAVORITES':
       return {
